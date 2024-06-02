@@ -29,7 +29,7 @@ export default function Userdialog() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="text" onClick={handleClickOpen} sx={{ ml: '10px' }}>
         <EditIcon></EditIcon>
       </Button>
       <form>
@@ -60,7 +60,7 @@ export default function Userdialog() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} type="submit">
-              Confirm
+              Confirm change
             </Button>
           </DialogActions>
         </Dialog>

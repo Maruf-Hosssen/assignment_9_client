@@ -67,6 +67,9 @@ const SideBar = () => {
           <Link href="/dashboard/admin/add-pet">
             <ListItem>Add a pet</ListItem>
           </Link>
+          <Link href="/">
+            <ListItem>Home</ListItem>
+          </Link>
         </List>
       </Box>
     </Box>

@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import SideBar from '../SideBar/Sidebar';
+import { getUserInfo } from '@/service/auth.service';
+import { useGetSingleUserQuery } from '@/redux/api/features/getuser';
 
 const drawerWidth = 240;
 
@@ -35,6 +37,7 @@ export default function DashboardDrawer({
       setMobileOpen(!mobileOpen);
     }
   };
+  const { data } = useGetSingleUserQuery({});
 
   // Remove this const when copying and pasting into your project.
 
@@ -63,7 +66,7 @@ export default function DashboardDrawer({
           </IconButton>
           <Box>
             <Typography variant="body2" noWrap component="div" color="gray">
-              Hi, Tanmoy Parvez
+              Hi,{data?.data?.name}
             </Typography>
             <Typography
               variant="body2"
