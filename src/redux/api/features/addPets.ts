@@ -16,6 +16,13 @@ const addPets = baseapi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getSinglepet: build.query({
+      query: (petId) => ({
+        url: `/pet/${petId}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
-export const { useAddPetMutation, useGetpetsQuery } = addPets;
+export const { useAddPetMutation, useGetpetsQuery, useGetSinglepetQuery } =
+  addPets;

@@ -49,7 +49,7 @@ function Navbar() {
   const userInfo = getUserInfo();
   //get user info
   const { isLoading, data } = useGetSingleUserQuery({});
-
+  const userRoleCheck = data?.data?.role;
   const firstLetter = userInfo?.email.charAt(0).toUpperCase();
   const router = useRouter();
   const handleLogOut = () => {
@@ -132,6 +132,9 @@ function Navbar() {
                   Login
                 </Button>
               )}
+              {userRoleCheck === 'ADMIN' && (
+                <Link href="/dashboard">Dashboard</Link>
+              )}
             </Menu>
           </Box>
 
@@ -192,7 +195,9 @@ function Navbar() {
                 Login
               </Button>
             )}
-            <Link href="/dashboard">Dashboard</Link>
+            {userRoleCheck === 'ADMIN' && (
+              <Link href="/dashboard">Dashboard</Link>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

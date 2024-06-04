@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetpetsQuery } from '@/redux/api/features/addPets';
-import SinglepetCard from './singlepetCard';
+import SinglepetCard, { Pet } from './singlepetCard';
 import { Box, Grid } from '@mui/material';
 
 export default function PetCard() {

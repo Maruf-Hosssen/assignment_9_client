@@ -10,11 +10,22 @@ import Typography from '@mui/material/Typography';
 
 import { Box, Button, Grid } from '@mui/material';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
-
+export type Pet = {
+  id: string;
+  name: string;
+  photo: string;
+  description: string;
+  age: number;
+  breed: string;
+  gender: 'male' | 'female';
+  healthStatus: string;
+  currentLocation: string;
+};
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -25,7 +36,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-const SinglepetCard = ({ pet }) => {
+const SinglepetCard = ({ pet }: { pet: Pet }) => {
   const [expanded, setExpanded] = React.useState(false);
   return (
     <Card
@@ -65,7 +76,9 @@ const SinglepetCard = ({ pet }) => {
           </Typography>
         </Box>
 
-        <Button variant="contained">Details</Button>
+        <Button variant="contained">
+          <Link href={`/pet/${pet?.id}`}>Details</Link>
+        </Button>
       </Box>
     </Card>
   );
