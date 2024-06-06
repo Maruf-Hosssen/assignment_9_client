@@ -10,12 +10,24 @@ export const tagTypesList = [tagTypes.user, tagTypes.admin];
 const getUsers = baseapi.injectEndpoints({
   endpoints: (build) => ({
     getSingleUser: build.query({
-      query: () => ({
+      query: (data) => ({
         url: '/profile',
         method: 'GET',
+        contentType: 'application/json',
+        data,
+      }),
+    }),
+    updateUser: build.mutation({
+      query: (data) => ({
+        url: '/profile',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(data),
       }),
     }),
   }),
 });
 
-export const { useGetSingleUserQuery } = getUsers;
+export const { useGetSingleUserQuery, useUpdateUserMutation } = getUsers;

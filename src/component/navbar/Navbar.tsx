@@ -47,7 +47,6 @@ function Navbar() {
   const userInfo = getUserInfo();
   //get user info
   const { isLoading, data, refetch } = useGetSingleUserQuery({});
-
   const firstLetter = userInfo?.email.charAt(0).toUpperCase();
   const router = useRouter();
   const handleLogOut = () => {
@@ -221,11 +220,31 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Box
+                  textAlign="center"
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+                >
+                  <Link href="/profileupdate">Account</Link>
+                  <Link href={`/profileupdate/${data?.data?.id}`}>
+                    Edit Profile
+                  </Link>
+                  {userInfo?.email ? (
+                    <Button
+                      onClick={handleLogOut}
+                      variant="contained"
+                      color="error"
+                      sx={{}}
+                    >
+                      Logout
+                    </Button>
+                  ) : (
+                    <Button href="/login" variant="contained" color="primary">
+                      Login
+                    </Button>
+                  )}
+                </Box>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
