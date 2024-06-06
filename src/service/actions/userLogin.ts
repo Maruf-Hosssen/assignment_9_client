@@ -11,6 +11,7 @@ export const userLogin = async (data: FieldValues) => {
     },
     body: JSON.stringify(data),
     cache: 'no-store',
+    next: { revalidate: 3600 },
   });
   const userInfo = await res.json();
   return userInfo;

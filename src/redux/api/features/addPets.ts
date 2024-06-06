@@ -6,8 +6,10 @@ const addPets = baseapi.injectEndpoints({
       query: (data) => ({
         url: '/pets',
         method: 'POST',
-        contentType: 'application/json',
-        data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(data),
       }),
     }),
     getpets: build.query({

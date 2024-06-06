@@ -19,8 +19,6 @@ import Link from 'next/link';
 import { getUserInfo, isLoggedIn, removeUser } from '@/service/auth.service';
 import { useRouter } from 'next/navigation';
 import { useGetSingleUserQuery } from '@/redux/api/features/getuser';
-import { getFromLocalStorage } from '@/utils/local-storage';
-import { useGetAllUserQuery } from '@/redux/api/userManagementapi';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -48,15 +46,14 @@ function Navbar() {
   };
   const userInfo = getUserInfo();
   //get user info
-  const { isLoading, data } = useGetSingleUserQuery({});
-  const userRoleCheck = data?.data?.role;
+  const { isLoading, data, refetch } = useGetSingleUserQuery({});
+
   const firstLetter = userInfo?.email.charAt(0).toUpperCase();
   const router = useRouter();
   const handleLogOut = () => {
     removeUser();
     router.refresh();
   };
-
   return (
     <AppBar position="static" sx={{ background: '#e0f7fa' }}>
       <Container maxWidth="xl">
@@ -119,6 +116,10 @@ function Navbar() {
             >
               <Link href="/">Home</Link>
               <Link href="/aboutUs">About Us</Link>
+
+              <Link href="/dashboard">Dashboard</Link>
+              <Link href="/adoption">My Adopted Pets</Link>
+
               {userInfo?.email ? (
                 <Button
                   onClick={handleLogOut}
@@ -131,9 +132,6 @@ function Navbar() {
                 <Button href="/login" variant="contained" color="primary">
                   Login
                 </Button>
-              )}
-              {userRoleCheck === 'ADMIN' && (
-                <Link href="/dashboard">Dashboard</Link>
               )}
             </Menu>
           </Box>
@@ -186,6 +184,10 @@ function Navbar() {
           >
             <Link href="/">Home</Link>
             <Link href="/aboutUs">About Us</Link>
+
+            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/adoption">My Adopted Pets</Link>
+
             {userInfo?.email ? (
               <Button onClick={handleLogOut} variant="contained" color="error">
                 Logout
@@ -194,9 +196,6 @@ function Navbar() {
               <Button href="/login" variant="contained" color="primary">
                 Login
               </Button>
-            )}
-            {userRoleCheck === 'ADMIN' && (
-              <Link href="/dashboard">Dashboard</Link>
             )}
           </Box>
 

@@ -16,6 +16,7 @@ import React from 'react';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { isLoggedIn } from '@/service/auth.service';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 type TParams = {
   id: string;
@@ -131,7 +132,7 @@ const SingleProduct = ({ params }: { params: TParams }) => {
 
           <CardActions>
             <Button size="small" variant="outlined" sx={{ p: '10px 15px' }}>
-              Request for adoption
+              <Link href={`/adoption/${petId}`}>Request for adoption</Link>
             </Button>
           </CardActions>
         </Card>

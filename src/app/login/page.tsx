@@ -32,6 +32,7 @@ const LoginPage = () => {
         storeUserInfo({ accessToken: res?.data?.token });
         reset();
         router.push('/');
+        
       } else {
         setError(res.message);
         // console.log(res);

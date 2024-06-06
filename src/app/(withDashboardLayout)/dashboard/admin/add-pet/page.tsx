@@ -16,6 +16,8 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useAddPetMutation } from '@/redux/api/features/addPets';
 import { modifyPayload } from '@/utils/modifyPayload';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -40,28 +42,22 @@ interface IFormInput {
   currentLocation: string;
 }
 const AddpetPage = () => {
+  const router = useRouter();
   const [gender, setGender] = useState('');
 
   const { register, handleSubmit, reset } = useForm<IFormInput>();
 
   const [addPet] = useAddPetMutation();
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const mypetdata = {
-      name: data?.name,
-      photo: data?.photo,
-      description: data?.description,
-      age: Number(data?.age),
-
-      breed: data?.breed,
-      gender: data?.gender,
-      healthStatus: data?.healthStatus,
-      currentLocation: data.currentLocation,
-    };
+  const onSubmit: SubmitHandler<IFormInput> = async (values) => {
+    values.age = Number(values.age);
 
     try {
-      const res = await addPet(mypetdata);
-      console.log(res);
-      // reset();
+      const res = await addPet(values);
+      if (res?.data?.data?.id) {
+        toast.success('Pet added successfully');
+        reset();
+        router.push('/');
+      }
     } catch (err) {
       console.log(err);
     }
@@ -113,7 +109,6 @@ const AddpetPage = () => {
               variant="outlined"
               fullWidth
               margin="normal"
-              type="number"
               {...register('age', { required: true })}
             />
           </Grid>
@@ -172,7 +167,7 @@ const AddpetPage = () => {
               variant="outlined"
               fullWidth
               margin="normal"
-              {...register('currentLocation', { required: true })}
+              {...register('currentLocation')}
             />
           </Grid>
           <Grid
@@ -184,7 +179,7 @@ const AddpetPage = () => {
               alignItems: 'center',
             }}
           >
-            <Button
+            {/* <Button
               component="label"
               role={undefined}
               variant="contained"
@@ -195,7 +190,15 @@ const AddpetPage = () => {
             >
               Upload file
               <VisuallyHiddenInput type="file" />
-            </Button>
+            </Button> */}
+            <TextField
+              required
+              label="Photo"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              {...register('photo', { required: true })}
+            />
           </Grid>
         </Grid>
 
