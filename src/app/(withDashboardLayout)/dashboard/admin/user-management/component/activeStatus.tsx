@@ -19,7 +19,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
 interface IFormInput {
-  role?: 'ADMIN' | 'USER';
+  isActive?: boolean;
 }
 export default function Userdialog() {
   const [open, setOpen] = React.useState(false);
@@ -33,6 +33,7 @@ export default function Userdialog() {
     setOpen(false);
   };
   //update user
+  const [gender, setGender] = React.useState(true);
 
   const [updateUser] = useUpdateUserMutation();
   const { register, handleSubmit, reset } = useForm<IFormInput>();
@@ -41,12 +42,11 @@ export default function Userdialog() {
   const onSubmit: SubmitHandler<IFormInput> = async (values) => {
     console.log(values);
     try {
-      const res = await updateUser(values);
-      if (res?.data?.data?.id) {
-        toast.success(`User role changed to ${values.role}`);
-
-        //   router.push('/');
-      }
+      //       const res = await updateUser(values);
+      //       if (res?.data?.data?.id) {
+      //         toast.success(`User role changed to ${values.role}`);
+      //         //   router.push('/');
+      //       }
     } catch (err) {
       console.log(err);
     }
@@ -59,10 +59,10 @@ export default function Userdialog() {
       </Button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Change the role</DialogTitle>
+          <DialogTitle>Change Status</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Confirm before change the fole
+              Confirm before change the status
             </DialogContentText>
             <Box
               noValidate
@@ -75,15 +75,19 @@ export default function Userdialog() {
               }}
             >
               <FormControl sx={{ mt: 2, minWidth: 280 }}>
-                <InputLabel htmlFor="max-width">Role</InputLabel>
+                <InputLabel htmlFor="max-width">Status</InputLabel>
                 <Select
-                  autoFocus
-                  label="role"
-                  defaultValue="USER"
-                  {...register('role', { required: true })}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={gender}
+                  label="Status"
+                  fullWidth
+                  variant="outlined"
+                  {...register('isActive', { required: true })}
+                  onChange={(event) => setGender(false)}
                 >
-                  <MenuItem value="USER">USER</MenuItem>
-                  <MenuItem value="ADMIN">ADMIN</MenuItem>
+                  <MenuItem value="true">Active</MenuItem>
+                  <MenuItem value="false">Block</MenuItem>
                 </Select>
                 <Button type="submit" onClick={handleClose} sx={{ mt: '10px' }}>
                   Submit

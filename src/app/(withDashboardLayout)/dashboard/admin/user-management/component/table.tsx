@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Button, Switch } from '@mui/material';
 import { useState } from 'react';
 import UserDialague from './userdialog';
+import StatusDialogue from './activeStatus';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -63,11 +64,8 @@ export default function UserTable({ users }: { users: TUser[] }) {
               <StyledTableCell align="right">{row.email}</StyledTableCell>
               <StyledTableCell align="right">
                 {row?.isActive === true ? 'Active' : 'Block'}
-                <Switch
-                  checked={checked}
-                  onClick={handleChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
+
+                <StatusDialogue></StatusDialogue>
               </StyledTableCell>
               <StyledTableCell align="right">
                 {row.role}
