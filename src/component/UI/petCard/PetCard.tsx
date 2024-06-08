@@ -8,7 +8,7 @@ export default function PetCard() {
   const { data, isLoading, isSuccess } = useGetpetsQuery({});
   return (
     <Grid container spacing={1} sx={{ mt: '10px', mb: '40px' }}>
-      {data?.data?.map((pet) => (
+      {data?.data?.map((pet: Pet) => (
         <Grid key={pet?.id} item xs={6} md={4}>
           <SinglepetCard pet={pet} key={pet?.id}></SinglepetCard>
         </Grid>
