@@ -12,7 +12,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
 import Link from 'next/link';
@@ -20,7 +19,12 @@ import { getUserInfo, isLoggedIn, removeUser } from '@/service/auth.service';
 import { useRouter } from 'next/navigation';
 import { useGetSingleUserQuery } from '@/redux/api/features/getuser';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import dynamic from 'next/dynamic';
+import { ListItem } from '@mui/material';
+
+const AuthButton = dynamic(() => import('../UI/authbutton/authbutton'), {
+  ssr: false,
+});
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -47,12 +51,16 @@ function Navbar() {
   const userInfo = getUserInfo();
   //get user info
   const { isLoading, data, refetch } = useGetSingleUserQuery({});
-  const firstLetter = userInfo?.email.charAt(0).toUpperCase();
+  //avatar
+  const [firstLetter, setFirstLetter] = React.useState('');
+  React.useEffect(() => {
+    if (userInfo?.email) {
+      setFirstLetter(userInfo?.email.charAt(0).toUpperCase());
+    }
+  }, [userInfo?.email]);
+
   const router = useRouter();
-  const handleLogOut = () => {
-    removeUser();
-    router.refresh();
-  };
+
   return (
     <AppBar position="static" sx={{ background: '#e0f7fa' }}>
       <Container maxWidth="xl">
@@ -119,19 +127,7 @@ function Navbar() {
               <Link href="/dashboard">Dashboard</Link>
               <Link href="/adoption">My Adopted Pets</Link>
 
-              {userInfo?.email ? (
-                <Button
-                  onClick={handleLogOut}
-                  variant="contained"
-                  color="error"
-                >
-                  Logout
-                </Button>
-              ) : (
-                <Button href="/login" variant="contained" color="primary">
-                  Login
-                </Button>
-              )}
+              <AuthButton></AuthButton>
             </Menu>
           </Box>
 
@@ -187,15 +183,7 @@ function Navbar() {
             <Link href="/dashboard">Dashboard</Link>
             <Link href="/adoption">My Adopted Pets</Link>
 
-            {userInfo?.email ? (
-              <Button onClick={handleLogOut} variant="contained" color="error">
-                Logout
-              </Button>
-            ) : (
-              <Button href="/login" variant="contained" color="primary">
-                Login
-              </Button>
-            )}
+            <AuthButton></AuthButton>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -225,24 +213,16 @@ function Navbar() {
                   textAlign="center"
                   sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                 >
-                  <Link href="/profileupdate">Account</Link>
+                
+                    <Link href="/profileupdate">Account</Link>
+                
                   <Link href={`/profileupdate/${data?.data?.id}`}>
                     Edit Profile
                   </Link>
-                  {userInfo?.email ? (
-                    <Button
-                      onClick={handleLogOut}
-                      variant="contained"
-                      color="error"
-                      sx={{}}
-                    >
-                      Logout
-                    </Button>
-                  ) : (
-                    <Button href="/login" variant="contained" color="primary">
-                      Login
-                    </Button>
-                  )}
+                  <Link href={``}>
+                    Change password
+                  </Link>
+                  <AuthButton></AuthButton>
                 </Box>
               </MenuItem>
             </Menu>

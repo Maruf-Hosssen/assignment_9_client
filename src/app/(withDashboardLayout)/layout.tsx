@@ -2,10 +2,17 @@
 import DashboardDrawer from '@/component/dashboard/dashboardDrawer/DashboardDrawer';
 import { useGetSingleUserQuery } from '@/redux/api/features/getuser';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   //get user info
   const { isLoading, data, refetch } = useGetSingleUserQuery({});
+  if (data?.data?.role === 'USER') {
+    toast.error('You are not an admin');
+    router.push('/');
+  }
   const userRoleCheck = data?.data?.role;
 
   // if (userRoleCheck !== 'ADMIN') {

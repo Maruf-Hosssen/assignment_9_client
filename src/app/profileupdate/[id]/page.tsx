@@ -26,10 +26,8 @@ const ProfileUpdate = ({ params }: { params: IParams }) => {
   const { register, handleSubmit, reset } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (values) => {
-    console.log(values);
     try {
       const res = await updateUser(values);
-      console.log(res);
       if (res?.data?.data?.id) {
         toast.success('Profile updated successfully');
         reset();
@@ -68,6 +66,9 @@ const ProfileUpdate = ({ params }: { params: IParams }) => {
                 defaultValue={userProfile?.data?.email}
                 disabled
               />
+              <Typography sx={{ fontSize: '12px', color: 'red' }}>
+                **Email can be update after 49 days
+              </Typography>
               <Button
                 variant="contained"
                 color="primary"
