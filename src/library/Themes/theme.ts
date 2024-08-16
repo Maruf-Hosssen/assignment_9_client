@@ -1,12 +1,10 @@
+'use client';
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#1586FD',
-    },
-    secondary: {
-      main: '#666f73',
+      main: '#2F4F4F',
     },
   },
 
@@ -25,11 +23,6 @@ export const theme = createTheme({
       defaultProps: {
         maxWidth: 'lg',
       },
-    },
-  },
-  typography: {
-    body1: {
-      color: '#0B1134CC',
     },
   },
 });

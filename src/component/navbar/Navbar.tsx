@@ -62,7 +62,7 @@ function Navbar() {
   const router = useRouter();
 
   return (
-    <AppBar position="static" sx={{ background: '#e0f7fa' }}>
+    <AppBar position="sticky" sx={{ background: '#e0f7fa' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ borderRadius: '50%', display: { xs: 'none' } }}>
@@ -123,8 +123,9 @@ function Navbar() {
             >
               <Link href="/">Home</Link>
               <Link href="/aboutUs">About Us</Link>
-
-              <Link href="/dashboard">Dashboard</Link>
+              {data?.data?.role === 'ADMIN' && (
+                <Link href="/dashboard">Dashboard</Link>
+              )}
               <Link href="/adoption">My Adopted Pets</Link>
 
               <AuthButton></AuthButton>
@@ -180,7 +181,9 @@ function Navbar() {
             <Link href="/">Home</Link>
             <Link href="/aboutUs">About Us</Link>
 
-            <Link href="/dashboard">Dashboard</Link>
+            {data?.data?.role === 'ADMIN' && (
+              <Link href="/dashboard">Dashboard</Link>
+            )}
             <Link href="/adoption">My Adopted Pets</Link>
 
             <AuthButton></AuthButton>
@@ -213,15 +216,12 @@ function Navbar() {
                   textAlign="center"
                   sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                 >
-                
-                    <Link href="/profileupdate">Account</Link>
-                
+                  <Link href="/profileupdate">Account</Link>
+
                   <Link href={`/profileupdate/${data?.data?.id}`}>
                     Edit Profile
                   </Link>
-                  <Link href={``}>
-                    Change password
-                  </Link>
+                  <Link href={``}>Change password</Link>
                   <AuthButton></AuthButton>
                 </Box>
               </MenuItem>

@@ -1,3 +1,5 @@
+'use client';
+import { useGetpetsQuery } from '@/redux/api/features/addPets';
 import {
   Box,
   Checkbox,
@@ -13,6 +15,8 @@ const Searchbar = ({ children }: { children: React.ReactNode }) => {
   const label = {
     inputProps: { 'aria-label': 'Checkbox demo' },
   };
+
+  const { data, isLoading, isSuccess } = useGetpetsQuery({});
   return (
     <Box
       sx={{
@@ -25,7 +29,7 @@ const Searchbar = ({ children }: { children: React.ReactNode }) => {
           flexDirection: 'column',
           width: '20%',
           background: '#e0f7fa',
-          height: '100vh',
+          height: '56vh',
           flexShrink: 0,
           fontFamily: 'roboto',
         }}

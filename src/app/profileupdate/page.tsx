@@ -7,6 +7,7 @@ import Navbar from '@/component/navbar/Navbar';
 
 const Profile = () => {
   const { data: userProfile, isLoading } = useGetSingleUserQuery({});
+  console.log(userProfile);
   if (isLoading) {
     return <>loading...</>;
   }

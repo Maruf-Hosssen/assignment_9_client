@@ -8,10 +8,11 @@ const Footer = () => {
       sx={{
         background: '#000000',
         color: 'whitesmoke',
-        padding: '40px',
+        padding: '50px',
 
         bottom: 0,
         width: '100%',
+        mt: '50px',
       }}
     >
       <Grid container spacing={3}>
@@ -19,10 +20,10 @@ const Footer = () => {
         <Grid item xs={12} sm={4} md={4}>
           <Typography variant="h6">Contact Information</Typography>
           <Typography variant="body1">
-            <Email /> example@example.com
+            <Email /> petadoptionbd@egmail.com
           </Typography>
           <Typography variant="body1">
-            <Phone /> +1 234 567 890
+            <Phone /> 01711223344
           </Typography>
           <Box sx={{ display: 'flex', mt: 2 }}>
             <Link
@@ -57,7 +58,7 @@ const Footer = () => {
         <Grid item xs={12} sm={4} md={4}>
           <Typography variant="h6">Copyright Information</Typography>
           <Typography variant="body1">
-            © {new Date().getFullYear()} Your Website. All rights reserved.
+            © {new Date().getFullYear()} Pet-adoptionbd. All rights reserved.
           </Typography>
         </Grid>
         {/* Additional Links */}
@@ -71,6 +72,11 @@ const Footer = () => {
           <Typography variant="body1">
             <Link href="/privacy" color="inherit">
               Privacy Policy
+            </Link>
+          </Typography>
+          <Typography variant="body1">
+            <Link href="/aboutUs" color="inherit">
+              About Us
             </Link>
           </Typography>
         </Grid>

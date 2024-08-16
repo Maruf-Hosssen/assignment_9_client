@@ -3,6 +3,7 @@ import { getUserInfo, removeUser } from '@/service/auth.service';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { toast } from 'sonner';
 
 const AuthButton = () => {
   const userInfo = getUserInfo();
@@ -11,6 +12,8 @@ const AuthButton = () => {
   const handleLogOut = () => {
     removeUser();
     router.refresh();
+    toast.success('Successfully Logout');
+    router.push('/login');
   };
   return (
     <>

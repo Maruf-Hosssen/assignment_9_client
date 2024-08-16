@@ -36,7 +36,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-const SinglepetCard = ({ pet }: { pet: Pet }) => {
+const SingleCat = ({ pet }: { pet: Pet }) => {
+  console.log(pet);
   const [expanded, setExpanded] = React.useState(false);
   return (
     <Card
@@ -84,4 +85,4 @@ const SinglepetCard = ({ pet }: { pet: Pet }) => {
   );
 };
 
-export default SinglepetCard;
+export default SingleCat;

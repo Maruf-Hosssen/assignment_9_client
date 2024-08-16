@@ -28,10 +28,12 @@ const ProfileUpdate = ({ params }: { params: IParams }) => {
   const onSubmit: SubmitHandler<IFormInput> = async (values) => {
     try {
       const res = await updateUser(values);
+      console.log(res);
+
       if (res?.data?.data?.id) {
         toast.success('Profile updated successfully');
-        reset();
-        router.push('/');
+        // reset();
+        // router.push('/');
       }
     } catch (err) {
       console.log(err);

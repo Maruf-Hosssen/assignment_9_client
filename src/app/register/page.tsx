@@ -35,7 +35,7 @@ const RegisterPage = () => {
   const onSubmit: SubmitHandler<IFormInput> = async (values: FieldValues) => {
     try {
       const res = await registerUser(values);
-      console.log(res);
+
       if (res?.data?.id) {
         toast.success(res?.message);
         const result = await userLogin({
